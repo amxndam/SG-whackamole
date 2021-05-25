@@ -30,8 +30,17 @@ class MyScene extends THREE.Scene {
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
     this.axis = new THREE.AxesHelper (5);
     this.add (this.axis);
-    
-    
+
+    this.topo1 = new Topo(this.gui, "Controles del topo 1", 33, 5, -10);
+    this.add (this.topo1);
+
+ 	this.topo2 = new Topo(this.gui, "Controles del topo 2", 1, 5, -10);
+    this.add (this.topo2);
+
+    this.topo3 = new Topo(this.gui, "Controles del topo 3", -33, 5, -10);
+    this.add (this.topo3);
+
+ 
 
 
     
@@ -66,13 +75,13 @@ class MyScene extends THREE.Scene {
   createGround () {
     
     // La geometría es una caja con poca altura y 5 agujeros
-    var cilindro1 = new THREE.CylinderGeometry(5,5,1.8,20);
-    var cilindro2 = new THREE.CylinderGeometry(5,5,1.8,20);
-    var cilindro3 = new THREE.CylinderGeometry(5,5,1.8,20);
-    var cilindro4 = new THREE.CylinderGeometry(5,5,1.8,20);
-    var cilindro5 = new THREE.CylinderGeometry(5,5,1.8,20);
+    var cilindro1 = new THREE.CylinderGeometry(5,5,12,20);
+    var cilindro2 = new THREE.CylinderGeometry(5,5,12,20);
+    var cilindro3 = new THREE.CylinderGeometry(5,5,12,20);
+    var cilindro4 = new THREE.CylinderGeometry(5,5,12,20);
+    var cilindro5 = new THREE.CylinderGeometry(5,5,12,20);
 
-    var geometryGround = new THREE.BoxGeometry (100,1,50);
+    var geometryGround = new THREE.BoxGeometry (100,12,50);
 
     cilindro1.translate(-35,0.2,-11);
     cilindro2.translate(-1,0.2,-11);
@@ -210,6 +219,10 @@ class MyScene extends THREE.Scene {
     
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
+
+    this.topo1.update(this.guiControls.flatShading);
+    this.topo2.update(this.guiControls.flatShading);
+    this.topo3.update(this.guiControls.flatShading);
 
     
    
