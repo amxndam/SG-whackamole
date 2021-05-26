@@ -1,11 +1,6 @@
-/// La clase fachada del modelo
-/**
- * Usaremos una clase derivada de la clase Scene de Three.js para llevar el control de la escena y de todo lo que ocurre en ella.
- */
 
 class MyScene extends THREE.Scene {
-  // Recibe el  div  que se ha creado en el  html  que va a ser el lienzo en el que mostrar
-  // la visualización de la escena
+  
   constructor (myCanvas) { 
     super();
     
@@ -15,10 +10,7 @@ class MyScene extends THREE.Scene {
     // Se crea la interfaz gráfica de usuario
     this.gui = this.createGUI ();
     
-    // Construimos los distinos elementos que tendremos en la escena
-    
-    // Todo elemento que se desee sea tenido en cuenta en el renderizado de la escena debe pertenecer a esta. Bien como hijo de la escena (this en esta clase) o como hijo de un elemento que ya esté en la escena.
-    // Tras crear cada elemento se añadirá a la escena con   this.add(variable)
+    //creamos la luz
     this.createLights ();
     
     // Tendremos una cámara con un control de movimiento con el ratón
@@ -31,6 +23,9 @@ class MyScene extends THREE.Scene {
     this.axis = new THREE.AxesHelper (5);
     this.add (this.axis);
 
+    //creamos los topos
+
+       
     this.topo1 = new Topo(this.gui, "Controles del topo 1", 33, 5, -10);
     this.add (this.topo1);
 
@@ -40,8 +35,45 @@ class MyScene extends THREE.Scene {
     this.topo3 = new Topo(this.gui, "Controles del topo 3", -33, 5, -10);
     this.add (this.topo3);
 
- 
 
+ /*
+
+    this.topo1 = new Topo(this.gui, "Controles del topo 1", 33, 5, -10);
+ 	this.topo2 = new Topo(this.gui, "Controles del topo 2", 1, 5, -10);
+    this.topo3 = new Topo(this.gui, "Controles del topo 3", -33, 5, -10);
+
+    this.group = new THREE.Group();
+
+    this.group.add(this.topo1);
+    this.group.add(this.topo2);
+    this.group.add(this.topo3);
+
+    this.add(this.group);
+
+   
+
+
+
+
+    this.topo1 = new Topo(this.gui, "Controles del topo 1", 33, 5, -10);
+ 	this.topo2 = new Topo(this.gui, "Controles del topo 2", 1, 5, -10);
+    this.topo3 = new Topo(this.gui, "Controles del topo 3", -33, 5, -10);
+
+    this.topos = [];
+
+    this.topos.push(this.topo1);
+    this.topos.push(this.topo2);
+    this.topos.push(this.topo3);
+
+    this.add(this.topos);
+
+     */
+
+
+
+    //para registrar el ratón
+ 	this.mouse = new THREE.Vector2();
+ 	this.raycaster = new THREE.Raycaster();
 
     
 
@@ -104,8 +136,7 @@ class MyScene extends THREE.Scene {
 
     
     // El material se hará con una textura de madera
-    var texture = new THREE.TextureLoader().load('../imgs/ladrillo-mapaNormal.jpg');
-    var materialGround = new THREE.MeshPhongMaterial ({color: 0xD3B8F3});
+    var materialGround = new THREE.MeshPhongMaterial ({color: 0x9BE3E4});
     
     // Ya se puede construir el Mesh
     var ground = finalGeometryGround5.toMesh(materialGround);
@@ -206,7 +237,29 @@ class MyScene extends THREE.Scene {
     this.renderer.setSize (window.innerWidth, window.innerHeight);
   }
 
+  pulsarTopo (){
+
+	this.raycaster.setFromCamera( this.mouse, this.camera );
+
+	this.topos = [];
+
+    this.topos.push(this.topo1);
+    this.topos.push(this.topo2);
+    this.topos.push(this.topo3);
+
+	const intersects = this.raycaster.intersectObjects( this.topos );
+
+	for ( let i = 0; i < intersects.length; i ++ ) {
+
+		intersects[i].object.material.color.set( 0x000000 );
+
+	}
+
+  }
+
   update () {
+
+  	
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
 
@@ -220,9 +273,33 @@ class MyScene extends THREE.Scene {
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
 
+
+    
+   
     this.topo1.update(this.guiControls.flatShading);
     this.topo2.update(this.guiControls.flatShading);
     this.topo3.update(this.guiControls.flatShading);
+
+    this.pulsarTopo();
+
+
+    /*
+	
+	for ( let i = 0; i < this.group.children.length; i ++ ) {
+
+		group.children[i].update(this.guiControls.flatShading);
+
+	}
+
+	
+
+	for ( let i = 0; i < this.topos.length; i ++ ) {
+
+		this.topos[i].update(this.guiControls.flatShading);
+
+	}
+
+	*/
 
     
    
@@ -231,6 +308,18 @@ class MyScene extends THREE.Scene {
     // Si no existiera esta línea,  update()  se ejecutaría solo la primera vez.
     requestAnimationFrame(() => this.update())
   }
+
+   onMouseMove( event ) {
+
+	// calculate mouse position in normalized device coordinates
+	// (-1 to +1) for both components
+
+	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+  }
+
+
 }
 
 
@@ -242,6 +331,8 @@ $(function () {
 
   // Se añaden los listener de la aplicación. En este caso, el que va a comprobar cuándo se modifica el tamaño de la ventana de la aplicación.
   window.addEventListener ("resize", () => scene.onWindowResize());
+
+  window.addEventListener( "mousemove", () => scene.onMouseMove, false );
   
   // Que no se nos olvide, la primera visualización.
   scene.update();
