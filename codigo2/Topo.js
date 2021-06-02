@@ -1,3 +1,5 @@
+
+
 class Topo extends THREE.Object3D {
     constructor(gui,titleGui, x, y, z) {
       super();
@@ -39,18 +41,21 @@ class Topo extends THREE.Object3D {
         this.currentHeight = 0;
       } 
       
-    }    
+    }   
+
+    
 
     update () {
       this.topo.scale.set(this.guiControls.x, this.guiControls.y,this.guiControls.z);
      // this.changeFlatShading(flatShading);
      // this.topo.rotation.y += 0.01;
 
+     
 
       if(this.guiControls.maximumHeight == false){
-         this.topo.position.y += 0.01;
+         this.topo.position.y += 0.05;
 
-         if(this.topo.position.y >= 10){
+         if(this.topo.position.y >= 9.5){
            this.guiControls.maximumHeight = true;
            this.guiControls.minimumHeight = false;
          }

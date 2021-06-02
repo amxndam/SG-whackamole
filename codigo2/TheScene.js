@@ -1,3 +1,6 @@
+function randomTime(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+} 
 
 /// The Model Facade class. The root node of the graph.
 /**
@@ -20,6 +23,8 @@ class TheScene extends THREE.Scene {
     this.topo1 = null;
     this.topo2 = null;
     this.topo3 = null;
+    this.topo4 = null;
+    this.topo5 = null;
 
     this.selectbox=null;
 
@@ -173,6 +178,14 @@ class TheScene extends THREE.Scene {
     this.add (this.topo3);
     model.add(this.topo3);
 
+    this.topo4 = new Topo(this.gui, "Controles del topo 3", -16, 5, 11);
+    this.add (this.topo4);
+    model.add(this.topo4);
+
+    this.topo5 = new Topo(this.gui, "Controles del topo 3", 16, 5, 11);
+    this.add (this.topo5);
+    model.add(this.topo5);
+
 
     this.selectbox = new THREE.Mesh (
     new THREE.BoxGeometry (11,11,11),
@@ -187,9 +200,13 @@ class TheScene extends THREE.Scene {
    * @controls - The GUI information
    */
   animate () {
+    var time = randomTime(500, 1000);
+
     this.topo1.update();
     this.topo2.update();
     this.topo3.update();
+    this.topo4.update();
+    this.topo5.update();
   }
 
   setSlectBox(x,y,z){

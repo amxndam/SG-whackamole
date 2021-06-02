@@ -1,3 +1,6 @@
+var puntos = document.querySelector('.score');
+
+let puntuacion = 0;
 positionx =null;
 positiony =null;
 positionz =null;
@@ -121,17 +124,34 @@ function onMouseDown( event ) {
     var raycaster =  new THREE.Raycaster();
     raycaster.setFromCamera( mouse3D, scene.getCamera() );
 
-    var objects = [scene.topo1, scene.topo2, scene.topo3];
+    var objects = [scene.topo1, scene.topo2, scene.topo3, scene.topo4, scene.topo5];
     var intersects = raycaster.intersectObjects( objects,true );
+
+    
 
     intersects[0].object.material.transparent = true;
     intersects[0].object.material.opacity = 0.5;
 
+    golpeado();
+
     intersects[1].object.material.transparent = true;
     intersects[1].object.material.opacity = 0.5;
 
+    golpeado();
+
+
     intersects[2].object.material.transparent = true;
     intersects[2].object.material.opacity = 0.5;
+
+    golpeado();
+
+    intersects[3].object.material.transparent = true;
+    intersects[3].object.material.opacity = 0.5;
+
+    intersects[4].object.material.transparent = true;
+    intersects[4].object.material.opacity = 0.5;
+
+    
 
     positionx=Math.round(intersects[0].object.position.x);
     positiony=Math.round(intersects[0].object.position.y);
@@ -140,6 +160,11 @@ function onMouseDown( event ) {
    // scene.setSlectBox(positionx,positiony,positionz);
 
   }
+}
+
+function golpeado(){
+  puntuacion++;
+  puntos.textContent = puntuacion;
 }
 
 /// It creates and configures the WebGL renderer
@@ -170,6 +195,8 @@ function render() {
 $(function () {
   // create a render and set the size
   renderer = createRenderer();
+
+
   // add the output of the renderer to the html element
   $("#WebGL-output").append(renderer.domElement);
   // liseners
