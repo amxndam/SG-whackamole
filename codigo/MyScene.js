@@ -35,6 +35,15 @@ class MyScene extends THREE.Scene {
     this.topo3 = new Topo(this.gui, "Controles del topo 3", -33, 5, -10);
     this.add (this.topo3);
 
+    this.positionx =null;
+	this.positiony =null;
+	this.positionz =null;
+
+	this.selectbox = new THREE.Mesh (
+    new THREE.CubeGeometry (5,10,3),
+    new THREE.MeshPhongMaterial({color:0x000000}));
+
+
 
  /*
 
@@ -247,7 +256,7 @@ class MyScene extends THREE.Scene {
     this.topos.push(this.topo2);
     this.topos.push(this.topo3);
 
-	const intersects = this.raycaster.intersectObjects( this.topos );
+	const intersects = this.raycaster.intersectObjects( this.children );
 
 	for ( let i = 0; i < intersects.length; i ++ ) {
 
@@ -257,11 +266,23 @@ class MyScene extends THREE.Scene {
 
   }
 
-  update () {
+  resetMaterials(){
 
-  	
+  	for (let i = 0; i < this.children.length; i ++){
+  		if(this.children[i].material){
+  		   this.children[i].material.opacity = 0.5;
+  		}
+
+  	}
+
+
+
+  }
+
+  update () {
+    
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
-    this.renderer.render (this, this.getCamera());
+    this.renderer.render (this, this.camera);
 
     // Se actualizan los elementos de la escena para cada frame
     // Se actualiza la intensidad de la luz con lo que haya indicado el usuario en la gui
@@ -274,13 +295,13 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
 
 
-    
+    this.resetMaterials();
+  	this.pulsarTopo();
    
-    this.topo1.update(this.guiControls.flatShading);
+   this.topo1.update(this.guiControls.flatShading);
     this.topo2.update(this.guiControls.flatShading);
     this.topo3.update(this.guiControls.flatShading);
 
-    this.pulsarTopo();
 
 
     /*
@@ -309,16 +330,38 @@ class MyScene extends THREE.Scene {
     requestAnimationFrame(() => this.update())
   }
 
-   onMouseMove( event ) {
-
-	// calculate mouse position in normalized device coordinates
-	// (-1 to +1) for both components
-
-	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
+   setSlectBox(x,y,z){
+    this.selectbox.position.x=x;
+    this.selectbox.position.y=y;
+    this.selectbox.position.z=z;
   }
 
+   onMouseMove( event ) {
+
+	    event.preventDefault();
+	    var mouse3D = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1,
+	                            -( event.clientY / window.innerHeight ) * 2 + 1,
+	                            0.5 );
+	    var raycaster =  new THREE.Raycaster();
+	    raycaster.setFromCamera( mouse3D, this.getCamera() );
+
+	    this.topos = [];
+
+	    this.topos.push(this.topo1);
+	    this.topos.push(this.topo2);
+	    this.topos.push(this.topo3);
+
+	    var objects = [this.children];
+	    var intersects = raycaster.intersectObjects( objects,true );
+
+	    this.positionx=Math.round(intersects[0].object.position.x);
+	    this.positiony=Math.round(intersects[0].object.position.y);
+	    this.positionz=Math.round(intersects[0].object.position.z);
+
+	    this.setSlectBox(this.positionx,this.positiony,this.positionz);
+
+	 
+	}
 
 }
 
@@ -332,7 +375,7 @@ $(function () {
   // Se añaden los listener de la aplicación. En este caso, el que va a comprobar cuándo se modifica el tamaño de la ventana de la aplicación.
   window.addEventListener ("resize", () => scene.onWindowResize());
 
-  window.addEventListener( "mousemove", () => scene.onMouseMove, false );
+ // window.addEventListener( "mousemove", () => scene.onMouseMove, true );
   
   // Que no se nos olvide, la primera visualización.
   scene.update();

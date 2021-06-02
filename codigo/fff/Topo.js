@@ -7,7 +7,7 @@ class Topo extends THREE.Object3D {
       this.createGUI(gui,titleGui);
       
       // El material se usa desde varios métodos. Por eso se alamacena en un atributo
-      this.material = new THREE.MeshPhongMaterial({color: 0x9BE3E4});
+      this.material = new THREE.MeshStandardMaterial({color: 0x9BE3E4});
       this.material.needsUpdate = true;
       
       this.topo = this.createGeometry();
@@ -39,16 +39,9 @@ class Topo extends THREE.Object3D {
         this.currentHeight = 0;
       } 
       
-      // Se crea una sección para los controles de la caja
-      var folder = gui.addFolder (titleGui);
-      // Estas lineas son las que añaden los componentes de la interfaz
-      // Las tres cifras indican un valor mínimo, un máximo y el incremento
-      folder.add (this.guiControls, 'x', 1, 7, 0.1).name ('Coordenada x');
-      folder.add (this.guiControls, 'y', 1, 7, 0.1).name ('Coordenada y');
-      folder.add (this.guiControls, 'z', 1, 7, 0.1).name ('Coordenada z');
     }    
 
-    update (flatShading) {
+    update () {
       this.topo.scale.set(this.guiControls.x, this.guiControls.y,this.guiControls.z);
      // this.changeFlatShading(flatShading);
      // this.topo.rotation.y += 0.01;
@@ -72,18 +65,20 @@ class Topo extends THREE.Object3D {
         }
       }
 
+
+
     
 
     }
 
     changeFlatShading(flatShading){
         if(flatShading == true){
-            var topoAuxMaterial = new THREE.MeshPhongMaterial({color: 0x9BE3E4,flatShading: true, needsUpdate: true});
+            var topoAuxMaterial = new THREE.MeshStandardMaterial({color: 0x9BE3E4,flatShading: true, needsUpdate: true});
             topoAuxMaterial.needsUpdate = true;
         }
 
         else{
-            var topoAuxMaterial = new THREE.MeshPhongMaterial({color: 0x9BE3E4, flatShading: false});
+            var topoAuxMaterial = new THREE.MeshStandardMaterial({color: 0x9BE3E4, flatShading: false});
             topoAuxMaterial.needsUpdate = false;
 
         }
