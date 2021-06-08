@@ -1,3 +1,12 @@
+#score {
+    background:blue;
+    padding: 0 48px;
+    line-height: 1;
+    border-radius: 16px;
+    color: #fff;
+    margin-left: 15px;
+}
+
 .score {
     background:blue;
     padding: 0 48px;
@@ -6,6 +15,7 @@
     color: #fff;
     margin-left: 15px;
 }
+
 
 
 button{

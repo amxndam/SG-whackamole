@@ -1,9 +1,7 @@
-var puntos = document.querySelector('.score');
+var puntuacion = 0;
 
-let puntuacion = 0;
-positionx =null;
-positiony =null;
-positionz =null;
+
+
 /// Several functions, including the main
 
 /// The scene graph
@@ -127,44 +125,95 @@ function onMouseDown( event ) {
     var objects = [scene.topo1, scene.topo2, scene.topo3, scene.topo4, scene.topo5];
     var intersects = raycaster.intersectObjects( objects,true );
 
+    if(intersects[0].object.material.transparent == false){
+      intersects[0].object.material.transparent = true;
+      intersects[0].object.material.opacity = 0.7;
+      console.log('opacidad 1:' + intersects[0].object.material.opacity);
+    }
+
+
+    if(scene.topo1.material.opacity == 0.7){
+      puntuacion++;
+      scene.topo1.material.opacity = 0.2;
+      console.log('opacidad 2:' + intersects[0].object.material.opacity);
+      console.log('puntuacion:' + puntuacion);
+
+    }
+
+    if(scene.topo2.material.opacity == 0.7){
+      puntuacion++;
+      scene.topo2.material.opacity = 0.2;
+      console.log('opacidad 2:' + intersects[1].object.material.opacity);
+      console.log('puntuacion 2:' + puntuacion);
+
+    }
+
+    if(scene.topo3.material.opacity == 0.7){
+      puntuacion++;
+      scene.topo3.material.opacity = 0.2;
+      console.log('opacidad 2:' + intersects[2].object.material.opacity);
+      console.log('puntuacion 2:' + puntuacion);
+
+    }
+
+    if(scene.topo4.material.opacity == 0.7){
+      puntuacion++;
+      scene.topo4.material.opacity = 0.2;
+      console.log('opacidad 2:' + intersects[3].object.material.opacity);
+      console.log('puntuacion 2:' + puntuacion);
+
+    }
+
+    if(scene.topo5.material.opacity == 0.7){
+      puntuacion++;
+      scene.topo5.material.opacity = 0.2;
+      console.log('opacidad 2:' + intersects[4].object.material.opacity);
+      console.log('puntuacion 2:' + puntuacion);
+
+    }
+
+
+
+
+    if(intersects[1].object.material.transparent == false){
+      intersects[1].object.material.transparent = true;
+      intersects[1].object.material.opacity = 0.7;
+      console.log('opacidad 1:' + intersects[1].object.material.opacity);
+    }
+
+    if(intersects[2].object.material.transparent == false){
+      intersects[2].object.material.transparent = true;
+      intersects[2].object.material.opacity = 0.7;
+      console.log('opacidad 1:' + intersects[2].object.material.opacity);
+    }
+
+    if(intersects[3].object.material.transparent == false){
+      intersects[3].object.material.transparent = true;
+      intersects[3].object.material.opacity = 0.7;
+      console.log('opacidad 1:' + intersects[3].object.material.opacity);
+    }
+
+    if(intersects[4].object.material.transparent == false){
+      intersects[4].object.material.transparent = true;
+      intersects[4].object.material.opacity = 0.7;
+      console.log('opacidad 1:' + intersects[4].object.material.opacity);
+    }
+
     
 
-    intersects[0].object.material.transparent = true;
-    intersects[0].object.material.opacity = 0.5;
+/*
+    if(scene.topo1.getPositionY() <= -0.2){
+        scene.topo1.material.opacity = 1.0;
+        scene.topo1.material.transparent = false;
+    }
 
-    golpeado();
-
-    intersects[1].object.material.transparent = true;
-    intersects[1].object.material.opacity = 0.5;
-
-    golpeado();
-
-
-    intersects[2].object.material.transparent = true;
-    intersects[2].object.material.opacity = 0.5;
-
-    golpeado();
-
-    intersects[3].object.material.transparent = true;
-    intersects[3].object.material.opacity = 0.5;
-
-    intersects[4].object.material.transparent = true;
-    intersects[4].object.material.opacity = 0.5;
-
-    
-
-    positionx=Math.round(intersects[0].object.position.x);
-    positiony=Math.round(intersects[0].object.position.y);
-    positionz=Math.round(intersects[0].object.position.z);
-
-   // scene.setSlectBox(positionx,positiony,positionz);
+*/
 
   }
 }
 
 function golpeado(){
   puntuacion++;
-  puntos.textContent = puntuacion;
 }
 
 /// It creates and configures the WebGL renderer
@@ -190,6 +239,8 @@ function render() {
 
   renderer.render(scene, scene.getCamera());
 }
+
+
 
 /// The main function
 $(function () {

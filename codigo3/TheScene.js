@@ -184,18 +184,17 @@ class TheScene extends THREE.Scene {
        this.model.children[this.ran].update();
     }
 
+
     else{
+      this.model.children[this.ran].material.opacity = 1.0;
+      this.model.children[this.ran].material.transparent = false;
       this.model.children[this.ran].setPositionY(-0.6);
+
       this.randomTopo();
     }
 
   }
 
-  setSlectBox(x,y,z){
-    this.selectbox.position.x=x;
-    this.selectbox.position.y=y;
-    this.selectbox.position.z=z;
-  }
 
 
   /// It returns the camera

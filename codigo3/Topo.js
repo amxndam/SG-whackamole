@@ -73,7 +73,7 @@ class Topo extends THREE.Object3D {
      
 
       if(this.guiControls.maximumHeight == false){
-         this.topo.position.y += 0.05;
+         this.topo.position.y += 0.25;
 
          if(this.topo.position.y >= 9.5){
            this.guiControls.maximumHeight = true;
@@ -82,7 +82,7 @@ class Topo extends THREE.Object3D {
       }
 
       else if(this.guiControls.minimumHeight == false){
-        this.topo.position.y -= 0.1;
+        this.topo.position.y -= 0.3;
 
         if(this.topo.position.y <= -1){
           this.guiControls.maximumHeight = false;
