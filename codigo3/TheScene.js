@@ -178,23 +178,18 @@ class TheScene extends THREE.Scene {
    */
   animate () {
 
-    console.log(this.ran.toString());
+   // console.log(this.ran.toString());
 
-    if(this.model.children[this.ran].position.y >= -1){
+    if(this.model.children[this.ran].cuerpoMesh.position.y >= 0){
        this.model.children[this.ran].update();
     }
 
 
     else{
-      /*
-      this.model.children[this.ran].materialVerde.opacity = 1.0;
-      this.model.children[this.ran].materialRojo.opacity = 1.0;
-      this.model.children[this.ran].materialAzul.opacity = 1.0;
-      this.model.children[this.ran].materialVerde.transparent = false;
-      this.model.children[this.ran].materialRojo.transparent = false;
-      this.model.children[this.ran].materialAzul.transparent = false;
-*/
-      this.model.children[this.ran].position.y = -3;
+      
+      this.model.children[this.ran].material.opacity = 1.0;
+      this.model.children[this.ran].material.transparent = false;
+      this.model.children[this.ran].cuerpoMesh.position.y = -5;
 
       this.randomTopo();
     }
