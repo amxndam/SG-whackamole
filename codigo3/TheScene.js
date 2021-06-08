@@ -140,23 +140,23 @@ class TheScene extends THREE.Scene {
     var model = new THREE.Object3D();
 
 
-    this.topo1 = new Topo(this.gui, "Controles del topo 1", 33, 0, -10);
+    this.topo1 = new TopoPrueba(this.gui, "Controles del topo 1", 33, 0, -10);
     this.add(this.topo1);
     model.add(this.topo1);
 
-    this.topo2 = new Topo(this.gui, "Controles del topo 2", 1, 0, -10);
+    this.topo2 = new TopoPrueba(this.gui, "Controles del topo 2", 1, 0, -10);
     this.add (this.topo2);
     model.add(this.topo2);
 
-    this.topo3 = new Topo(this.gui, "Controles del topo 3", -33, 0, -10);
+    this.topo3 = new TopoPrueba(this.gui, "Controles del topo 3", -33, 0, -10);
     this.add (this.topo3);
     model.add(this.topo3);
 
-    this.topo4 = new Topo(this.gui, "Controles del topo 3", -16, 0, 11);
+    this.topo4 = new TopoPrueba(this.gui, "Controles del topo 3", -16, 0, 11);
     this.add (this.topo4);
     model.add(this.topo4);
 
-    this.topo5 = new Topo(this.gui, "Controles del topo 3", 16, 0, 11);
+    this.topo5 = new TopoPrueba(this.gui, "Controles del topo 3", 16, 0, 11);
     this.add (this.topo5);
     model.add(this.topo5);
 
@@ -180,15 +180,21 @@ class TheScene extends THREE.Scene {
 
     console.log(this.ran.toString());
 
-    if(this.model.children[this.ran].getPositionY() >= -1){
+    if(this.model.children[this.ran].position.y >= -1){
        this.model.children[this.ran].update();
     }
 
 
     else{
-      this.model.children[this.ran].material.opacity = 1.0;
-      this.model.children[this.ran].material.transparent = false;
-      this.model.children[this.ran].setPositionY(-0.6);
+      /*
+      this.model.children[this.ran].materialVerde.opacity = 1.0;
+      this.model.children[this.ran].materialRojo.opacity = 1.0;
+      this.model.children[this.ran].materialAzul.opacity = 1.0;
+      this.model.children[this.ran].materialVerde.transparent = false;
+      this.model.children[this.ran].materialRojo.transparent = false;
+      this.model.children[this.ran].materialAzul.transparent = false;
+*/
+      this.model.children[this.ran].position.y = -3;
 
       this.randomTopo();
     }

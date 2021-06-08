@@ -125,7 +125,30 @@ function onMouseDown( event ) {
     var objects = [scene.topo1, scene.topo2, scene.topo3, scene.topo4, scene.topo5];
     var intersects = raycaster.intersectObjects( objects,true );
 
-    if(intersects[0].object.material.transparent == false){
+    intersects[0].object.material.transparent = true;
+    intersects[0].object.material.opacity = 0.5;
+
+    golpeado();
+
+    intersects[1].object.material.transparent = true;
+    intersects[1].object.material.opacity = 0.5;
+
+    golpeado();
+
+
+    intersects[2].object.material.transparent = true;
+    intersects[2].object.material.opacity = 0.5;
+
+    golpeado();
+
+    intersects[3].object.material.transparent = true;
+    intersects[3].object.material.opacity = 0.5;
+
+    intersects[4].object.material.transparent = true;
+    intersects[4].object.material.opacity = 0.5;
+
+/*
+    if(intersects[0].object.material.transparent == false && ){
       intersects[0].object.material.transparent = true;
       intersects[0].object.material.opacity = 0.7;
       console.log('opacidad 1:' + intersects[0].object.material.opacity);
@@ -140,6 +163,7 @@ function onMouseDown( event ) {
 
     }
 
+/*
     if(scene.topo2.material.opacity == 0.7){
       puntuacion++;
       scene.topo2.material.opacity = 0.2;
@@ -199,7 +223,7 @@ function onMouseDown( event ) {
       console.log('opacidad 1:' + intersects[4].object.material.opacity);
     }
 
-    
+    */
 
 /*
     if(scene.topo1.getPositionY() <= -0.2){

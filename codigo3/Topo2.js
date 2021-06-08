@@ -19,6 +19,8 @@ class TopoPrueba extends THREE.Object3D {
       this.materialAmarillo = new THREE.MeshPhongMaterial({color: 0x00ff00});
       this.materialCilindro = new THREE.MeshNormalMaterial();
 
+      
+
 
       //Geometrías
       var cuerpo = new THREE.CylinderGeometry(4,4,10,50);
@@ -68,12 +70,14 @@ class TopoPrueba extends THREE.Object3D {
       this.orejaIzquierdaMesh.position.x = x;
       this.orejaIzquierdaMesh.position.y = y;
       this.orejaIzquierdaMesh.position.z = z;
-
       //OrejaDerecha
       this.orejaDerechaMesh.position.x = x;
       this.orejaDerechaMesh.position.y = y;
       this.orejaDerechaMesh.position.z = z;
       */
+
+ 
+
 
       //Posiciones relativas
       cabeza.translate(0,5,0);
@@ -132,7 +136,6 @@ class TopoPrueba extends THREE.Object3D {
      // this.changeFlatShading(flatShading);
      // this.topo.rotation.y += 0.01;
 
-     
      // Para comprobar cuando el topo está a cierta altura y hacer que baje.
       if(this.guiControls.maximumHeight == false){
          this.cuerpoMesh.position.y += 0.05;
@@ -170,19 +173,15 @@ class TopoPrueba extends THREE.Object3D {
     }
 
     /* Ni idea
-
     changeFlatShading(flatShading){
         if(flatShading == true){
             var topoAuxMaterial = new THREE.MeshStandardMaterial({color: 0x9BE3E4,flatShading: true, needsUpdate: true});
             topoAuxMaterial.needsUpdate = true;
         }
-
         else{
             var topoAuxMaterial = new THREE.MeshStandardMaterial({color: 0x9BE3E4, flatShading: false});
             topoAuxMaterial.needsUpdate = false;
-
         }
-
         this.topo.material = topoAuxMaterial;
     }
     */
