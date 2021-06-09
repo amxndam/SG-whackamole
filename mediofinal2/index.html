@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Whac-a-mole</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="Styles.css">
+        <script type="text/javascript" src="./libs/three.js"></script>
+        <script type="text/javascript" src="./libs/tweenjs.js"></script>
+        <script type="text/javascript" src="./libs/Tween.js"></script>
+        <script type="text/javascript" src="./libs/jquery-1.9.0.js"></script>
+        <script type="text/javascript" src="./libs/stats.js"></script>
+        <script type="text/javascript" src="./libs/dat.gui.js"></script>
+        <script type="text/javascript" src="../libs/SceneUtils.js"></script>
+        <script type="text/javascript" src="./libs/ThreeBSP.js"></script>
+        <script type="text/javascript" src="./libs/TrackballControls.js"></script>
+        <script type="text/javascript" src="./libs/csg.js"></script>
+        <script type="text/javascript" src="TheScene.js"></script>
+        <script type="text/javascript" src="Script.js"></script>
+        <script type="text/javascript" src="Topo.js"></script>
+        <script type="text/javascript" src="Topo2.js"></script>
+        <script type="text/javascript" src="Mazo.js"></script>
+
+        <script>
+            function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
+</script>
+
+
+    
+    <style>
+        body{
+            margin: 0;
+            overflow: hidden; 
+        }
+    </style>
+</head>
+<body>
+
+    <span id="score" class="score">0</span>
+     <span id="time">00:60</span>
+
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+
+
+</div>
+
+    
+</body>
+
+
+<script type='text/javascript' > 
+
+setInterval(function() {
+    document.getElementById("score").innerHTML = puntuacion;
+}, 1000);
+
+</script>
+</html>
